@@ -5,7 +5,7 @@ declare interface Callback {
 }
 
 declare interface DestroyableServer extends Server {
-    destroy(cb: Callback): void;
+    destroy(cb?: Callback): void;
 }
 
 declare function enableDestroy(server: Server): DestroyableServer;

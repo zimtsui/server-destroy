@@ -4,7 +4,7 @@ interface Callback {
 }
 declare module "net" {
     interface Server {
-        destroy(cb: Callback): void;
+        destroy(cb?: Callback): void;
     }
 }
 declare function enableDestroy(server: Server): void;

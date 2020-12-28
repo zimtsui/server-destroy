@@ -4,10 +4,10 @@ Enable destroying a server, and all currently open connections.
 
 ## Usage
 
-```javascript
-var enableDestroy = require('server-destroy');
+```ts
+import enableDestroy from 'server-destroy';
 
-var server = http.createServer(function(req, res) {
+const server = http.createServer(function(req, res) {
   // do stuff, blah blah blah
 });
 

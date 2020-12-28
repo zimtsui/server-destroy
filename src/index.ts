@@ -20,7 +20,7 @@ function enableDestroy(server: Server): void {
         });
     });
 
-    server.destroy = function (cb: Callback) {
+    server.destroy = function (cb?: Callback) {
         server.close(cb);
         for (const conn of connections)
             conn.destroy();

@@ -1,5 +1,10 @@
-import net from 'net';
-import enableDestroy from './index';
+"use strict";
+/*
+    source: https://github.com/isaacs/server-destroy
+*/
+Object.defineProperty(exports, "__esModule", { value: true });
+const net = require("net");
+const __1 = require("../..");
 const server = net.createServer(function (conn) {
     var i = setInterval(function () {
         conn.read();
@@ -8,7 +13,7 @@ const server = net.createServer(function (conn) {
     i.unref();
 });
 server.listen(1337);
-enableDestroy(server);
+__1.enableDestroy(server);
 let connected = 0;
 for (let i = 0; i < 10; i++) {
     const client = net.connect(1337);
@@ -21,8 +26,8 @@ for (let i = 0; i < 10; i++) {
     client.on('error', function () { });
 }
 function destroy() {
-    server.destroy(function () {
+    server.destroy(null, function () {
         console.log('ok');
     });
 }
-//# sourceMappingURL=test.js.map
+//# sourceMappingURL=index.js.map

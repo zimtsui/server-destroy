@@ -1,5 +1,9 @@
-import net from 'net';
-import enableDestroy from './index';
+/*
+    source: https://github.com/isaacs/server-destroy
+*/
+
+import net = require('net');
+import { enableDestroy } from '../..';
 
 const server = net.createServer(function (conn) {
     var i = setInterval(function () {
@@ -24,7 +28,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 function destroy() {
-    server.destroy(function () {
+    server.destroy(null, function () {
         console.log('ok');
     });
 }

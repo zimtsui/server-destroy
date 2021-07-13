@@ -6,29 +6,29 @@ interface Callback {
 
 declare module "net" {
     interface Server {
-        destroy(cb?: Callback): void;
+        destroy(err?: Error | null, cb?: Callback): void;
     }
 }
 
-function enableDestroy(server: Server): void {
+function enableDestroy(server: Server): Server {
     const connections = new Set<Socket>();
 
-    server.on('connection', function (conn) {
-        connections.add(conn);
-        conn.on('close', function () {
-            connections.delete(conn);
+    server.on('connection', connection => {
+        connections.add(connection);
+        connection.on('close', () => {
+            connections.delete(connection);
         });
     });
 
-    server.destroy = function (cb?: Callback) {
+    server.destroy = function (err?: Error | null, cb?: Callback) {
         server.close(cb);
-        for (const conn of connections)
-            conn.destroy();
+        for (const conn of connections) conn.destroy(err || undefined);
     };
+
+    return server;
 }
 
 export {
-    enableDestroy as default,
     enableDestroy,
     Callback,
 }
